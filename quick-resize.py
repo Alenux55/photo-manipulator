@@ -2,7 +2,7 @@
 Photo Manipulator
 
 Date created: Aug 8 2016 00:16
-Date modified: Jan 17 2019 16:19
+Date modified: Jan 17 2019 17:06
 Created by: Alex Naylor
 Modified by: Alex Naylor
 """
@@ -16,7 +16,7 @@ import fnmatch
 import platform
 
 ### USER VARIABLES ###
-desResolution = 1920,1200   #Width,height (desired for final image)
+desResolution = 1920,1080   #Width,height (desired for final image)
 keepResolution = False #Set to 'False' if you want to resize the image to the desired resolution
                        #Set to 'True' if you want to keep the new resolution
 ######################
@@ -106,23 +106,14 @@ for filePath in files:
             leftCrop = int(widthCrop/2+0.5)
             rightCrop = int(currWidth-int(widthCrop/2-0.5))
 
-        if keepResolution == False:
-            print("Resize image to desired resolution...")
-            resolution = desResolution
-        else:
-            print("Keep new image resolution...")
-            resolution = int(newWidth),int(newHeight)
-        
-        photo.crop((leftCrop,topCrop,rightCrop,bottomCrop)).resize((resolution),Image.BICUBIC).save(newFilePath)
-        print("Photo saved in {0}".format(newFilePath))
+        photo.crop((leftCrop,topCrop,rightCrop,bottomCrop))
 
-    elif aspectRatio == desAspectRatio:
-        if keepResolution == False:
-            print("Resize image to desired resolution...")
-            resolution = desResolution
-        else:
-            print("Keep new image resolution...")
-            resolution = int(newWidth),int(newHeight)
-        
-        photo.resize((resolution),Image.BICUBIC).save(newFilePath)
-        print("Photo saved in {0}".format(newFilePath))
+    if keepResolution == False:
+        print("Resize image to desired resolution...")
+        resolution = desResolution
+    else:
+        print("Keep new image resolution...")
+        resolution = int(newWidth),int(newHeight)
+
+    photo.resize((resolution),Image.BICUBIC).save(newFilePath)
+    print("Photo saved in {0}\n\n".format(newFilePath))
